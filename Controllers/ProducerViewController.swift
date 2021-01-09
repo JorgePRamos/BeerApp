@@ -2,7 +2,7 @@
 //  ProducerViewController.swift
 //  BeerApp
 //
-//  Created by Jorge Pérez Ramos on 28/12/20.
+//  Created by Grégoire LARATTE on 28/12/20.
 //
 
 import Foundation
@@ -19,7 +19,7 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
     @IBOutlet weak var numberOfBeers: UILabel!
     
     @IBOutlet weak var done: UIButton!
-    //Producer to show
+    
     var aProducer:Producer?
     
     
@@ -32,8 +32,20 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameOfProducer.backgroundColor = UIColor.lightGray//cambiar color
+        nameOfProducer.backgroundColor = UIColor.lightGray
         nameOfProducer.textColor = UIColor.blue
+
+        
+        nameOfProducer.text = aProducer?.nameProducer
+        if aProducer?.logoProducer == nil{
+            imageOfProducer.image = nil
+            
+        }else
+        {
+            imageOfProducer.image = UIImage(data: (aProducer?.logoProducer!)!)
+            
+        }
+
   
         //Set up credentials of or  porducer
         nameOfProducer.text = aProducer?.nameProducer
@@ -45,6 +57,7 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
             
         }
         imageOfProducer.image = aProducer?.logoProducer
+
         let num = aProducer?.beersCollect?.count ?? 0
         numberOfBeers.text = "Nº of Beers: \(num)"
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGestureAction))
@@ -70,8 +83,6 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
     
     @IBAction func acceptAcceptAndReturn(_ sender: Any){
         var allCorrect : Bool = true
-        print("CLIKED ACCEPT AND RETURN")
-       
 
         if !checkType(self.nameOfProducer.text!, "word")  {
             
@@ -90,30 +101,37 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
         self.producerImage = self.imageOfProducer.image
         
         aProducer?.nameProducer = self.name!
-        aProducer?.logoProducer = self.producerImage
+        if (self.producerImage == nil)
+        {
+            aProducer?.logoProducer = nil
+            
+        }
+        else
+        {
+            aProducer?.logoProducer = self.producerImage.pngData()
+            
+        }
+        
         
         if(allCorrect){
-            print(self.aAction)
+
             if self.aAction == "addProducer"
             {
-                print("ADD PRODUCER !!!!!")
                 aProducer = Producer(nameProducer: self.name!, logoProducer: self.producerImage)
                 aModel!.producersNamed[aProducer!.nameProducer] = aProducer
                 aModel!.producers.removeAll()
-                print("azeerrttttttttttttttt")
-                print(aModel?.producersNamed.forEach{
-                    print($0.value.nameProducer)
-                })
                 aModel!.producers = aModel!.producersNamed.map { (name, producer) in
                     return producer
                 }
-                performSegue(withIdentifier: "unwindSegueFromProducerView", sender: self)//posible error
+                performSegue(withIdentifier: "unwindSegueFromProducerView", sender: self)
             }else{
+
             
             print("UNWIND")
             print(allCorrect)
                 print(aProducer?.logoProducer)
             performSegue(withIdentifier: "unwindSegueFromProducerView", sender: self)//posible error
+
                 }
         }
         
@@ -124,7 +142,6 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
  
     
     @objc func tapGestureAction(gesture: UITapGestureRecognizer){
-        print("             hello")
         if !UIImagePickerController.isSourceTypeAvailable(.camera){
         notifyUser(self, alertTitle: "The camera is unavailable", alertMessage: "The camera cant be run in the simulator", runOnOK: {_ in})
             return
@@ -142,7 +159,7 @@ extension ProducerViewController : UIImagePickerControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let newPic = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        aProducer?.logoProducer = newPic
+        aProducer?.logoProducer = newPic.pngData()
         self.imageOfProducer.image = newPic
         self.imageOfProducer.setNeedsDisplay()
         dismiss(animated: true, completion: nil)
@@ -173,8 +190,6 @@ extension ProducerViewController : UIImagePickerControllerDelegate{
            
             
         }else{
-            //expected number
-            print("This is taken care of UI")
             return true
         }
     }

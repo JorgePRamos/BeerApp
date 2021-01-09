@@ -2,23 +2,38 @@
 //  Beer.swift
 //  BeerApp
 //
-//  Created by Jorge Pérez Ramos on 27/12/20.
+//  Created by Grégoire LARATTE on 27/12/20.
 //
 
 import Foundation
 import UIKit
 
-let pathToUnknownImage  = Bundle.main.url(forResource: "def", withExtension: "jpg")!//Magier place holder jorge?¿
+let pathToUnknownImage  = Bundle.main.url(forResource: "def", withExtension: "jpg")!
 let unknownImage = UIImage(contentsOfFile: pathToUnknownImage.path)
 
 
-public class Beer : NSObject, NSCoding, NSSecureCoding{
+public class Beer : NSObject, NSCoding, NSSecureCoding, Codable{
     
     public static var supportsSecureCoding: Bool = true
     
     public func change(p_nameBeer:String)
     {
         self.nameBeer=p_nameBeer
+    }
+    
+    public enum Coding:CodingKey {
+        case nameBeer
+        case typeBeer
+        case producerBeer
+        case nationalityBeer
+        case capBeer
+        case expDateBeer
+        case rateBeer
+        case IDBeer
+        case IBUBeer
+        case volBeer
+        case pictureBeer
+        case duplicate
     }
     
     var nameBeer : String
@@ -31,7 +46,7 @@ public class Beer : NSObject, NSCoding, NSSecureCoding{
     var IDBeer : String
     var IBUBeer : String
     var volBeer : String
-    var pictureBeer : UIImage? = nil
+    var pictureBeer : Data? = nil
     var duplicate : String
     
     override public init() {
@@ -45,7 +60,7 @@ public class Beer : NSObject, NSCoding, NSSecureCoding{
         self.IDBeer = "Unkonwn"
         self.IBUBeer = "Unkonwn"
         self.volBeer = "Unkonwn"
-        self.pictureBeer = unknownImage
+        self.pictureBeer = unknownImage?.pngData()
 
         self.duplicate = "1"
 
@@ -84,19 +99,19 @@ public class Beer : NSObject, NSCoding, NSSecureCoding{
         self.IDBeer = IDBeer
         self.IBUBeer = IBUBeer
         self.volBeer = volBeer
-        self.pictureBeer = pictureBeer
+        self.pictureBeer = pictureBeer?.pngData()
         self.duplicate = "1"
     }
     
     init?(_ record: String, _ del: String) {
         let tokens = record.components(separatedBy: del)
-        print("#SALTO A CLASE BEER")
         guard
             tokens.count == 11, // Number of elements to import from CSV
             let tempBeerName = tokens.first,
             !tempBeerName.isEmpty
-        else {            print("#Problem with tokens --> \(tokens.count)")
-            print("#Problem with  --> \(tokens[0])")
+        else {
+            print("Problems with tokens \(tokens.count)")
+            print("Problems with  \(tokens[0])")
             return nil}
         
         let tempTypeBeer = tokens[1]
@@ -149,41 +164,21 @@ public class Beer : NSObject, NSCoding, NSSecureCoding{
         
         let tempDuplicate = 1
         
-        /*
-        guard
-            !tempPicture.isEmpty,
-            let bits = splitIntoNameAndExtension(total: tempPicture),//maxus
-            bits.count == 2,//¿?
-            let pathPicture = Bundle.main.url(forResource: bits[0], withExtension: bits[1],subdirectory: "beerApp-fotos"),//subdirectorychange
-            FileManager.default.fileExists(atPath: pathPicture.path),
-            let tempPictureImage = UIImage(contentsOfFile: pathPicture.path)
-        else {print("#Problem with photo --> \(tokens[0])")
-            return nil}
-        
-        */
-        
-
-        
         var tempMarkImage : UIImage?
         if
 
-            //let bits = splitIntoNameAndExtension(total: tempMark),//maxus
-            let bits = splitIntoNameAndExtension(total: tempPicture),//maxus
-            bits.count == 2,//¿?
+            let bits = splitIntoNameAndExtension(total: tempPicture),
+            bits.count == 2,
            
-            //goes for pic
             let pathToMark = Bundle.main.url(forResource: bits[0],withExtension: bits[1], subdirectory: "beerApp-fotos")
              
         {   tempMarkImage = UIImage(contentsOfFile: pathToMark.path)
-            print("Assigned specific photo")}else    {
-           // print("#Problem with picture --> \(trimed.lowercased())")
+            }else    {
             if
                 let pathToMark = Bundle.main.url(forResource:"def",withExtension: "jpg")
                 
             {tempMarkImage = UIImage(contentsOfFile: pathToMark.path)}else{
-                print("                                             #PROBLEMA  ")
                 return nil}
-            //return nil }
 
         }
         
@@ -199,7 +194,7 @@ public class Beer : NSObject, NSCoding, NSSecureCoding{
         self.IDBeer = tempIdBeer
         self.IBUBeer = tempIbuBeer
         self.volBeer = tempVolBeer
-        self.pictureBeer = tempMarkImage
+        self.pictureBeer = tempMarkImage?.pngData()
         self.duplicate = String (tempDuplicate)
         
     }
@@ -227,6 +222,21 @@ public class Beer : NSObject, NSCoding, NSSecureCoding{
         
     }
  
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Coding.self)
+        self.IBUBeer = try container.decodeIfPresent(String.self, forKey: .IBUBeer)!
+        self.IDBeer = try container.decodeIfPresent(String.self, forKey: .IDBeer)!
+        self.capBeer = try container.decodeIfPresent(String.self, forKey: .capBeer)!
+        self.duplicate = try container.decodeIfPresent(String.self, forKey: .duplicate)!
+        self.expDateBeer = try container.decodeIfPresent(String.self, forKey: .expDateBeer)!
+        self.nameBeer = try container.decodeIfPresent(String.self, forKey: .nameBeer)!
+        self.nationalityBeer = try container.decodeIfPresent(String.self, forKey: .nationalityBeer)!
+        self.pictureBeer = try container.decodeIfPresent(Data.self, forKey: .pictureBeer)!
+        self.producerBeer = try container.decodeIfPresent(String.self, forKey: .producerBeer)!
+        self.rateBeer = try container.decodeIfPresent(String.self, forKey: .rateBeer)!
+        self.typeBeer = try container.decodeIfPresent(String.self, forKey: .typeBeer)!
+        self.volBeer = try container.decodeIfPresent(String.self, forKey: .nameBeer)!
+    }
     
     
     public required init?(coder aDecoder: NSCoder) {
@@ -242,17 +252,11 @@ public class Beer : NSObject, NSCoding, NSSecureCoding{
         self.IDBeer = aDecoder.decodeObject(forKey: "IDBeer") as! String
         self.IBUBeer = aDecoder.decodeObject(forKey: "IBUBeer") as! String
         self.volBeer = aDecoder.decodeObject(forKey: "volBeer") as! String
-        self.pictureBeer = aDecoder.decodeObject(forKey: "pictureBeer") as! UIImage?
+        self.pictureBeer = aDecoder.decodeObject(forKey: "pictureBeer") as! Data?
         self.duplicate = aDecoder.decodeObject(forKey: "duplicate") as! String
         
     }
     
-    
-   
-    /*
-     public override var descrition: String{}
-     
-     */
     
     
     
