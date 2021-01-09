@@ -362,7 +362,7 @@ extension BeerViewController : UIPickerViewDataSource{
    
   
   
-  _ picker: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
+    func pickerView(_ picker: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
         
         
         if picker == producerSelector {

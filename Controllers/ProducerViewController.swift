@@ -37,26 +37,25 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
 
         
         nameOfProducer.text = aProducer?.nameProducer
-        if aProducer?.logoProducer == nil{
-            imageOfProducer.image = nil
-            
-        }else
-        {
-            imageOfProducer.image = UIImage(data: (aProducer?.logoProducer!)!)
-            
-        }
+        
+   
 
   
         //Set up credentials of or  porducer
         nameOfProducer.text = aProducer?.nameProducer
         if aProducer?.logoProducer == nil{
-            
+            print("HEMOES ESTADO AQUI")
             let pathToMark = Bundle.main.url(forResource:"defaultPic",withExtension: "png")
             
-            aProducer?.logoProducer = UIImage(contentsOfFile: pathToMark!.path)
+            aProducer?.logoProducer = UIImage(contentsOfFile: pathToMark!.path)?.pngData()
             
         }
-        imageOfProducer.image = aProducer?.logoProducer
+        
+        print("88888888888888888")
+        print(aProducer?.logoProducer)
+        let pathToMark = Bundle.main.url(forResource:"defaultPic",withExtension: "png")
+        
+        imageOfProducer.image = UIImage(contentsOfFile: pathToMark!.path)
 
         let num = aProducer?.beersCollect?.count ?? 0
         numberOfBeers.text = "Nº of Beers: \(num)"
