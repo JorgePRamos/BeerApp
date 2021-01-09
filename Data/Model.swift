@@ -76,7 +76,8 @@ public class Model : NSObject, NSCoding{
             producers.forEach{ producersNamed.updateValue($0, forKey: $0.nameProducer)}
             importBeers = importBeersFromCsv(NAME_OF_PRODUCER_FILE_IN_BUNDLE, folder: NAME_OF_FOLDER_IN_BUNDLE)
             
-            
+            print(importProducers)
+            print(importBeers)
             
             
             assert(importProducers && importBeers)
