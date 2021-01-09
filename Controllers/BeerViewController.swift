@@ -84,7 +84,7 @@ class BeerViewController: UIViewController, UINavigationControllerDelegate, UIGe
         }else{
             print("La foto no existe... Ponemos default")
             print(path.path)
-            self.beerImage = aBeer?.pictureBeer
+            self.beerImage = UIImage(data:(aBeer?.pictureBeer)!)
             
         }
         
@@ -188,7 +188,7 @@ class BeerViewController: UIViewController, UINavigationControllerDelegate, UIGe
         aBeer?.IDBeer = self.id!
         aBeer?.IBUBeer = self.ibu!
         aBeer?.volBeer = self.volD!
-        aBeer?.pictureBeer = self.beerImage
+        aBeer?.pictureBeer = self.beerImage.pngData()
         
         //¿?¿
         //aBeer?.picture

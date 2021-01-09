@@ -36,7 +36,14 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
         
         //Set up credentials of or  porducer
         nameOfProducer.text = aProducer?.nameProducer
-        imageOfProducer.image = aProducer?.logoProducer
+        if aProducer?.logoProducer == nil{
+            imageOfProducer.image = nil
+            
+        }else
+        {
+            imageOfProducer.image = UIImage(data: (aProducer?.logoProducer!)!)
+            
+        }
         let num = aProducer?.beersCollect?.count ?? 0
         numberOfBeers.text = "\(num) Beers"
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGestureAction))
@@ -59,7 +66,17 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
         self.producerImage = self.imageOfProducer.image
         
         aProducer?.nameProducer = self.name!
-        aProducer?.logoProducer = self.producerImage
+        if (self.producerImage == nil)
+        {
+            aProducer?.logoProducer = nil
+            
+        }
+        else
+        {
+            aProducer?.logoProducer = self.producerImage.pngData()
+            
+        }
+        
         
         if(allCorrect){
             print(self.aAction)
@@ -109,7 +126,7 @@ extension ProducerViewController : UIImagePickerControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let newPic = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        aProducer?.logoProducer = newPic
+        aProducer?.logoProducer = newPic.pngData()
         self.imageOfProducer.image = newPic
         self.imageOfProducer.setNeedsDisplay()
         dismiss(animated: true, completion: nil)
