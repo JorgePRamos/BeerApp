@@ -30,8 +30,12 @@ class BeerViewController: UIViewController, UINavigationControllerDelegate, UIGe
  
     @IBOutlet weak var idText: UILabel!
     @IBOutlet weak var ibuText: UITextField!
+    
+    //volDText
+    
+   
     @IBOutlet weak var volDText: UITextField!
-
+    
     @IBOutlet weak var beerImageFrame: UIImageView!
     
     @IBAction func unwind( _ seg: UIStoryboardSegue) {
