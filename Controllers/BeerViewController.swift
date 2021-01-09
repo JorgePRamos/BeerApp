@@ -10,9 +10,9 @@ import UIKit
 
 class BeerViewController: UIViewController, UINavigationControllerDelegate, UIGestureRecognizerDelegate, UIPickerViewDelegate{
     
-  
+    let yearMoths = ["January","February","March","April","May","June","July","Agust","September","October","November","December"]
     
-    
+    let monthDays = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"]
     @IBOutlet weak var producerSelector: UIPickerView!
     
     @IBOutlet weak var nameText: UITextField!
@@ -24,7 +24,7 @@ class BeerViewController: UIViewController, UINavigationControllerDelegate, UIGe
     // @IBOutlet weak var producerText: UITextField!
     @IBOutlet weak var nationalityText: UITextField!
     @IBOutlet weak var capText: UITextField!
-    @IBOutlet weak var expDText: UITextField!
+    //@IBOutlet weak var expDText: UITextField!
     @IBOutlet weak var rateText: UITextField!
     //idText
  
@@ -55,13 +55,19 @@ class BeerViewController: UIViewController, UINavigationControllerDelegate, UIGe
 
     var beerImage: UIImage!
     
-    
+    var tempM:String?
+    var tempD:String?
     var listMakersNames:[String]?
     let imgPicker = UIImagePickerController()
     
 
+   
+    @IBOutlet weak var expDatePicker: UIPickerView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        expDatePicker.dataSource = self
+        expDatePicker.delegate = self
         producerSelector.dataSource = self
         producerSelector.delegate = self
         listMakersNames = aModel?.producers.map{$0.nameProducer}//populate list with names
@@ -75,6 +81,9 @@ class BeerViewController: UIViewController, UINavigationControllerDelegate, UIGe
         self.id = aBeer?.IDBeer
         self.ibu = aBeer?.IBUBeer
         self.volD = aBeer?.volBeer
+        let tempDiv = aBeer?.expDateBeer.components(separatedBy: " ")
+        self.tempD = tempDiv![1]
+        self.tempM = tempDiv![0]
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let nameOfPicture = "\(self.id!).png"
         let path = documentDirectory[0].appendingPathComponent(nameOfPicture)
@@ -116,10 +125,76 @@ class BeerViewController: UIViewController, UINavigationControllerDelegate, UIGe
         
         let producerNumber = (listMakersNames?.firstIndex(of: self.producer!))!
         producerSelector.selectRow(producerNumber, inComponent: 0, animated: true)
-
+        let divided = self.expD?.components(separatedBy: " ")
+        let month = divided![0]
+        let day = divided![1]
+        print("*/*/*/*/*/*/*/*/*/*//*/*/*/*/")
+        print(month)
+        var m = 0
+        
+        //["January","February","March","April","May","June","July","Agust","September","October","November","December"]
+        switch month {
+        //Spanish
+        case "Enero":
+            m = 0
+        case "Febrero":
+            m = 1
+        case "Marzo":
+            m = 2
+        case "Abril":
+            m = 3
+        case "Mayo":
+            m = 4
+        case "Junio":
+            m = 5
+        case "Julio":
+            m = 6
+        case "Agosto":
+            m = 7
+        case "Septiembre":
+            m = 8
+        case "Octubre":
+            m = 9
+        case "Noviembre":
+            m = 10
+        case "Diciembre":
+            m = 11
+          //English
+        case "January":
+            m = 0
+        case "February":
+            m = 1
+        case "March":
+            m = 2
+        case "April":
+            m = 3
+        case "May":
+            m = 4
+        case "June":
+            m = 5
+        case "July":
+            m = 6
+        case "Agust":
+            m = 7
+        case "September":
+            m = 8
+        case "October":
+            m = 9
+        case "November":
+            m = 10
+        case "December":
+            m = 11
+            
+        default:
+            m = 11
+        }
+        print(day)
+        expDatePicker.selectRow(m, inComponent: 0, animated: true)
+        expDatePicker.selectRow((Int(day)!)-1, inComponent: 1, animated: true)
+        
         nationalityText.text = self.nationality
         capText.text = self.cap
-        expDText.text = self.expD
+       // expDText.text = self.expD
         rateText.text = self.rate
         idText.text = self.id
         ibuText.text = self.ibu
@@ -150,7 +225,7 @@ class BeerViewController: UIViewController, UINavigationControllerDelegate, UIGe
             allCorrect = false
         }
         self.cap = self.capText.text
-        self.expD = self.expDText.text
+     //   self.expD = self.expDText.text
 
         self.rate = self.rateText.text
         if !checkType(self.rateText.text!, "word")  {
@@ -176,7 +251,14 @@ class BeerViewController: UIViewController, UINavigationControllerDelegate, UIGe
         print("**********------**************-")
         print(producer)
         
-        
+        let month = yearMoths[expDatePicker.selectedRow(inComponent: 0)]
+            
+        let day = monthDays[expDatePicker.selectedRow(inComponent: 1)]
+            
+        self.expD = "\(month) \(day)"
+        print("12122112121212121212121")
+        print(self.expD)
+        aBeer?.expDateBeer = self.expD!
         
         
         aBeer?.typeBeer = self.type!
@@ -326,23 +408,71 @@ extension BeerViewController : UIPickerViewDataSource{
     // number of rows = the number of producers
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        
+        if pickerView == producerSelector {
         guard
             let numberRows = aModel?.producers.count
             else {
             return 0
         }
         return numberRows
+        }else if pickerView == expDatePicker{
+            
+            if component == 0{
+                return yearMoths.count
+                
+            }else if component == 1{
+                return monthDays.count
+                
+            }
+        }
+        return 0
     }
     //??
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        if pickerView == producerSelector {
+        return 1
+        }else if pickerView == expDatePicker{
+            return 2
+        }
         return 1
     }
     func pickerView(_ picker: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
-        return listMakersNames?[row] ?? "Unknown Producer"
+        
+        
+        if picker == producerSelector {
+            return listMakersNames?[row] ?? "Unknown Producer"
+        }else if picker == expDatePicker{
+            if component == 0{
+                return yearMoths[row]
+                
+            }else if component == 1{
+                return monthDays[row]
+                
+            }
+        }
+        
+        
+        return "Unknown"
+        
+        
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)  {
-       self.producer = listMakersNames?[row]
+       
+        
+        
+        
+        if pickerView == producerSelector {
+            self.listMakersNames?[row] ?? "Unknown Producer"
+        }else if pickerView == expDatePicker{
+            if component == 0{
+                self.tempM = yearMoths[row]
+                
+            }else if component == 1{
+                self.tempD =  monthDays[row]
+                
+            }
+            self.expD = "\(tempM!) \(tempD!)"
+        }
    }
     
     
