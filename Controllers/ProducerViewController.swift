@@ -12,6 +12,7 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
     
     
     
+    
    
     @IBOutlet weak var nameOfProducer: UITextField!
     @IBOutlet weak var imageOfProducer: UIImageView!
@@ -33,6 +34,7 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
         super.viewDidLoad()
         nameOfProducer.backgroundColor = UIColor.lightGray
         nameOfProducer.textColor = UIColor.blue
+
         
         nameOfProducer.text = aProducer?.nameProducer
         if aProducer?.logoProducer == nil{
@@ -43,12 +45,41 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
             imageOfProducer.image = UIImage(data: (aProducer?.logoProducer!)!)
             
         }
+
+  
+        //Set up credentials of or  porducer
+        nameOfProducer.text = aProducer?.nameProducer
+        if aProducer?.logoProducer == nil{
+            
+            let pathToMark = Bundle.main.url(forResource:"defaultPic",withExtension: "png")
+            
+            aProducer?.logoProducer = UIImage(contentsOfFile: pathToMark!.path)
+            
+        }
+        imageOfProducer.image = aProducer?.logoProducer
+
         let num = aProducer?.beersCollect?.count ?? 0
-        numberOfBeers.text = "\(num) Beers"
+        numberOfBeers.text = "Nº of Beers: \(num)"
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGestureAction))
         self.imageOfProducer.addGestureRecognizer(tapGesture)
        
     }
+    
+    @IBAction func cancelAction(_ sender: Any){
+        performSegue(withIdentifier: "unwindSegueFromProducerView", sender: self)//posible error
+    }
+    
+
+    override public var shouldAutorotate: Bool {
+        return false
+      }
+      override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .landscapeRight
+      }
+      override public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .landscapeRight
+      }
+    
     
     @IBAction func acceptAcceptAndReturn(_ sender: Any){
         var allCorrect : Bool = true
@@ -60,6 +91,13 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
         }
         self.name = self.nameOfProducer.text
         self.number = self.numberOfBeers.text
+        if self.producerImage == nil{
+            
+            let pathToMark = Bundle.main.url(forResource:"defaultPic",withExtension: "png")
+            
+            self.producerImage = UIImage(contentsOfFile: pathToMark!.path)
+            
+        }
         self.producerImage = self.imageOfProducer.image
         
         aProducer?.nameProducer = self.name!
@@ -87,13 +125,21 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
                 }
                 performSegue(withIdentifier: "unwindSegueFromProducerView", sender: self)
             }else{
-            performSegue(withIdentifier: "unwindSegueFromProducerView", sender: self)
+
+            
+            print("UNWIND")
+            print(allCorrect)
+                print(aProducer?.logoProducer)
+            performSegue(withIdentifier: "unwindSegueFromProducerView", sender: self)//posible error
+
                 }
         }
         
         
     }
 
+    
+ 
     
     @objc func tapGestureAction(gesture: UITapGestureRecognizer){
         if !UIImagePickerController.isSourceTypeAvailable(.camera){

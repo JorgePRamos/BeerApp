@@ -91,17 +91,16 @@ class ViewController: UITableViewController {
         
     }
     
+    @IBAction func discoverAct(_ sender: Any) {
+        performSegue(withIdentifier: "segueToDiscover", sender: "discoverBeer")
+        
+    }
+    
     
        @IBAction func delBeerAct(_ sender: Any){
-        let p = Producer()
-        p.nameProducer = "Jorge el cervezas"
-        print("Salto a creación de header")
-        
+       
   
     
-        model.producers.append(p)
-        tableView.headerView(forSection: model.producers.count - 1)
-        tableView.reloadData()
         
         
            if self.editingStyle == UITableViewCell.EditingStyle.none{
@@ -278,6 +277,8 @@ class ViewController: UITableViewController {
             let destController = segue.destination as! BeerViewController
             destController.aModel = model
             destController.aBeer = selectedBeer
+        case "segueToDiscover":
+            let destController = segue.destination as! DiscoverViewController
         default:
             break
         }
