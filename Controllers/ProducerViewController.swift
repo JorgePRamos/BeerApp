@@ -32,6 +32,8 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
     var number: String?
     
     override func viewDidLoad() {
+        
+        
         super.viewDidLoad()
         nameOfProducer.backgroundColor = UIColor.lightGray
         nameOfProducer.textColor = UIColor.blue
@@ -39,7 +41,14 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
         
         nameOfProducer.text = aProducer?.nameProducer
         
-   
+        if nameOfProducer.text == ""{
+            deleteBtt.isEnabled = false
+            
+        }else{
+            
+            deleteBtt.isEnabled = true
+        }
+        
 
   
         //Set up credentials of or  porducer
@@ -71,14 +80,15 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
     
     @IBAction func deleteAction(_ sender: Any){
         
-  
+        
         aModel?.producersNamed.removeValue(forKey: aProducer!.nameProducer)
-       
-        aModel!.producers.removeAll()
-        aModel!.producers = aModel!.producersNamed.map { (name, producer) in
+        print("5555555555555")
+        print(aModel?.producersNamed)
+        aModel?.producers.removeAll()
+        aModel?.producers = aModel!.producersNamed.map { (name, producer) in
             return producer
         }
-        
+        performSegue(withIdentifier: "unwindSegueFromProducerView", sender: self)//posible error
         
     }
 
@@ -129,6 +139,7 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
 
             if self.aAction == "addProducer"
             {
+                
                 aProducer = Producer(nameProducer: self.name!, logoProducer: self.producerImage)
                 aModel!.producersNamed[aProducer!.nameProducer] = aProducer
                 aModel!.producers.removeAll()

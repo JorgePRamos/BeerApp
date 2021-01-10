@@ -277,6 +277,7 @@ class ViewController: UITableViewController {
             else
             {
                 let destController = segue.destination as! ProducerViewController
+                destController.aModel = model
                 destController.aProducer = sender as? Producer
                 
             }
