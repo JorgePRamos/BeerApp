@@ -105,9 +105,7 @@ public class Model : NSObject, NSCoding{
            // print(producersNamed.first?.value.beersCollect?[].nameBeer)
             print(producersNamed.first?.value.beersCollect?.count)
             print("#######################################################")
-            let p = Producer()
-            p.nameProducer = "Anna producer"
-            producersNamed[p.nameProducer] = p
+
         }
    
    

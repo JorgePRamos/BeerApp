@@ -19,6 +19,7 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
     @IBOutlet weak var numberOfBeers: UILabel!
     
     @IBOutlet weak var done: UIButton!
+    @IBOutlet weak var deleteBtt: UIButton!
     
     var aProducer:Producer?
     
@@ -68,6 +69,18 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
         performSegue(withIdentifier: "unwindSegueFromProducerView", sender: self)//posible error
     }
     
+    @IBAction func deleteAction(_ sender: Any){
+        
+  
+        aModel?.producersNamed.removeValue(forKey: aProducer!.nameProducer)
+       
+        aModel!.producers.removeAll()
+        aModel!.producers = aModel!.producersNamed.map { (name, producer) in
+            return producer
+        }
+        
+        
+    }
 
     override public var shouldAutorotate: Bool {
         return false

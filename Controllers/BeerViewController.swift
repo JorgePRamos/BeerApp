@@ -266,7 +266,7 @@ class BeerViewController: UIViewController, UINavigationControllerDelegate, UIGe
             
 
   
-            aModel?.producersNamed["Ana producer"]?.beersCollect?.forEach{print($0.nameBeer)}
+           
             aModel!.producers.removeAll()
             aModel!.producers = aModel!.producersNamed.map { (name, producer) in
                 return producer

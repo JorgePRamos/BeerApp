@@ -12,6 +12,7 @@ class ViewController: UITableViewController {
 
     @IBOutlet weak var addProdButt: UIButton!
     
+    @IBOutlet weak var discoverBtt: UIButton!
     @IBOutlet weak var addBeerButt: UIButton!
     @IBOutlet weak var delBeerButt: UIButton!
     
@@ -72,6 +73,8 @@ class ViewController: UITableViewController {
                    self.editingStyle = .insert
                    addBeerButt.setTitle("Done", for: .normal)
                    delBeerButt.isEnabled = false
+                    discoverBtt.isEnabled = false
+                    addProdButt.isEnabled = false
                    tableView.setEditing(true, animated: true)
                    
            }else if self.editingStyle == .insert{
@@ -79,6 +82,8 @@ class ViewController: UITableViewController {
                    self.editingStyle = UITableViewCell.EditingStyle.none
 
                    delBeerButt.isEnabled = true
+                discoverBtt.isEnabled = true
+                addProdButt.isEnabled = true
                    addBeerButt.setTitle("Add Beer", for: .normal)
                    tableView.setEditing(false, animated: true)
                    
@@ -109,12 +114,16 @@ class ViewController: UITableViewController {
                    self.editingStyle = .delete
                    delBeerButt.setTitle("Done", for: .normal)
                    addBeerButt.isEnabled = false
+            discoverBtt.isEnabled = false
+            addProdButt.isEnabled = false
                    tableView.setEditing(true, animated: true)
                    
            }else if self.editingStyle == .delete{
                    
                    self.editingStyle = UITableViewCell.EditingStyle.none
                    addBeerButt.isEnabled = true
+                discoverBtt.isEnabled = true
+                addProdButt.isEnabled = true
                    delBeerButt.setTitle("Remove Beer", for: .normal)
                    tableView.setEditing(false, animated: true)
                    
@@ -371,7 +380,7 @@ func duplicateBeers(_ producers:[Producer], _ viewController:UIViewController) -
             
                                     producers[indexProducer].beersCollect?.remove(at: indexsBeer![0])
                                 viewController.dismiss(animated: false, completion: nil)
-                                notifyUser(viewController, alertTitle: "Repetition Alert", alertMessage: "Cant have more of three copiees of the same beer", runOnOK: {_ in})
+                                notifyUser(viewController, alertTitle: "Redundancy Alert", alertMessage: "Cant have more than three copies of the same beer", runOnOK: {_ in})
                                 
                                 
                                 
@@ -437,7 +446,7 @@ func duplicateProducers(_ producers:[Producer], _ viewController:UIViewControlle
 
                         producers.remove(at: index)
                     viewController.dismiss(animated: false, completion: nil)
-                    notifyUser(viewController, alertTitle: "Repetition Alert", alertMessage: "We cant have more of three copiees of the same producer", runOnOK: {_ in})
+                    notifyUser(viewController, alertTitle: "Redundancy Alert", alertMessage: "Cant have more than three copies of the same producer", runOnOK: {_ in})
                     
                     
                     
