@@ -98,7 +98,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="frG-bw-zA9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1034.4000000000001" y="113.79310344827587"/>
+            <point key="canvasLocation" x="-1402" y="-667"/>
         </scene>
         <!--Producer View Controller-->
         <scene sceneID="5YJ-a9-Mdg">
@@ -191,7 +191,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="okQ-Dn-N3A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="hSc-TU-33X" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1412" y="-532.98350824587715"/>
+            <point key="canvasLocation" x="-663" y="-977"/>
         </scene>
         <!--Beer View Controller-->
         <scene sceneID="4dX-JS-0qV">
@@ -436,7 +436,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9KP-dj-SRk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="q0r-Ho-AX7" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="742.39999999999998" y="602.69865067466276"/>
+            <point key="canvasLocation" x="43" y="-425"/>
         </scene>
         <!--Discover View Controller-->
         <scene sceneID="bYe-Ou-UsA">
@@ -563,7 +563,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nzz-xr-spI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="ndP-5L-rW6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-584" y="1340.3298350824589"/>
+            <point key="canvasLocation" x="-3061" y="-490"/>
         </scene>
     </scenes>
     <resources>

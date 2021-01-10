@@ -205,7 +205,7 @@ extension ProducerViewController : UIImagePickerControllerDelegate{
         if expected == "word"{
             let phone = introduced.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")
             if !phone.isEmpty  {
-                notifyUser(self, alertTitle: "Type of Input Incorrect", alertMessage: "\(introduced): Wasn't cant take numbers. Please correct it to save", runOnOK: {_ in})
+                notifyUser(self, alertTitle: "Type of Input Incorrect", alertMessage: "\(introduced): Can't take numbers. Please correct it to save", runOnOK: {_ in})
                     return false
                 }
                 return true
