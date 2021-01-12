@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  BeerApp
 //
-//  Created by Grégoire LARATTE on 26/12/20.
+//  Created by Jorge Pérez Ramos on 26/12/20.
 //
 
 import UIKit
@@ -11,38 +11,30 @@ import UIKit
 class ViewController: UITableViewController {
 
     @IBOutlet weak var addProdButt: UIButton!
-    
     @IBOutlet weak var discoverBtt: UIButton!
     @IBOutlet weak var addBeerButt: UIButton!
     @IBOutlet weak var delBeerButt: UIButton!
     
     var model = Model()
     var editingStyle:UITableViewCell.EditingStyle?
-    public var indexBeer = 2
+
     override func viewDidLoad() {
         super.viewDidLoad()
-   
         model.producers = model.producersNamed.map { (name, producer) in
             return producer
         }
+        
         model.producers.sort{$0.nameProducer < $1.nameProducer}
-        model.producers[0].beersCollect?.forEach{print("                        BEERS IN PRODUCERS \($0.nameBeer)")}
-        
-        
-        
-
-       
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.appEnterBackGround(notification:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
-        
         
         self.editingStyle = UITableViewCell.EditingStyle.none
         tableView.reloadData()
-        
-        
-            
+ 
     }//end view did load
     
+    //If the app closes or goes to background
     @objc func appEnterBackGround(notification: NSNotification){
+        
             //update map
             model.producers.forEach{ model.producersNamed.updateValue($0, forKey: $0.nameProducer)}
             
@@ -56,19 +48,19 @@ class ViewController: UITableViewController {
            }
             
        }
-    
+    //Activation when we come back from any segue(unwind)
     @IBAction func returnfromDetail(segue:UIStoryboardSegue)->Void{
         model.producers.forEach{ b in b.beersCollect?.sort(by: {($0.nameBeer) < ($1.nameBeer)})}
-        model.producers = duplicateBeers(model.producers, self)
-        model.producers = duplicateProducers(model.producers,self)
+        model.producers = cleanBeers(model.producers, self)
+        model.producers = cleanProducers(model.producers,self)
         model.producers.sort{$0.nameProducer < $1.nameProducer}
-        
-       
+
         tableView.reloadData()
        }
-       
-       @IBAction func addBeerAct(_ sender: Any){
-        
+    
+       //Behaviour for add beer Button
+    @IBAction func addBeerAct(_ sender: Any){
+            //Depending of current state of button
            if self.editingStyle == UITableViewCell.EditingStyle.none{
                    self.editingStyle = .insert
                    addBeerButt.setTitle("Done", for: .normal)
@@ -89,27 +81,25 @@ class ViewController: UITableViewController {
                    
                }
            
-       }
-       
+    }
+    
+    //Behaviour for add producer Button
     @IBAction func addProdAct(_ sender: Any) {
         performSegue(withIdentifier: "segueToProducer", sender: "addProducer")
         
     }
     
+    //Behaviour for dicover Beers Button
     @IBAction func discoverAct(_ sender: Any) {
         performSegue(withIdentifier: "segueToDiscover", sender: "discoverBeer")
         
     }
     
-    
-       @IBAction func delBeerAct(_ sender: Any){
-       
-  
-    
-        
-        
+    //Behaviour for delete beer Button
+    @IBAction func delBeerAct(_ sender: Any){
+
+            //Depending of current state of button
            if self.editingStyle == UITableViewCell.EditingStyle.none{
-               
                
                    self.editingStyle = .delete
                    delBeerButt.setTitle("Done", for: .normal)
@@ -129,20 +119,18 @@ class ViewController: UITableViewController {
                    
                }
            
-       }
+    }
     
-    //Return for a given moment the sate of table (editing, none...)
+    //Return editing style of table
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle{
         return self.editingStyle!
-        
-
     }
-    
+    //Returns header if info source not found
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Hello from new function"
+        return "Table Header"
     }
     
-    //The producer affected by deletion or addition
+    //Adds or deletes beers from a given producer
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
         let section = indexPath.section
         let row = indexPath.row
@@ -171,20 +159,22 @@ class ViewController: UITableViewController {
         
     }
     
+    //Returns number of producers for header count
     override func numberOfSections(in tableView: UITableView) -> Int{
        return model.producers.count
       
     }
     
+    //Reutns number of beers for cell count
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         let producerNumber = section
-        
         let producer = model.producers[producerNumber]
-        
         return producer.beersCollect?.count ?? 0
       
     }
     
+    //Fetches and creates new custom cell
    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let producerNum = indexPath.section
 
@@ -204,9 +194,12 @@ class ViewController: UITableViewController {
         return cell
     }
     
+    //Returns height for headers
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 44
     }
+    
+    //Fetches and creates new custom header
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let producer = model.producers[section]
 
@@ -221,8 +214,9 @@ class ViewController: UITableViewController {
         
         return headerView
     }
+    
+    //Handles segue to producer
     @objc func jumpToProducerView(_ sender:UIGestureRecognizer){
-        
         
         if sender.state == .ended{
             guard
@@ -235,32 +229,33 @@ class ViewController: UITableViewController {
         
     }
     
-
-     func tableView(_ tableView: UITableView, heightForRowAt indexpath: Int) -> CGFloat {
+    //Returns height for cell
+    func tableView(_ tableView: UITableView, heightForRowAt indexpath: Int) -> CGFloat {
             return 100
     }
+    
+    //Handles segue to beer detail
     func tableView(_ tableView: UITableView, _ indexPath: IndexPath){
-        print("ESTOY EN table view segue")
+       
            let producer = model.producers[indexPath.section]
            let beer =  producer.beersCollect?[indexPath.row]
            performSegue(withIdentifier: "segueToBeer", sender: beer)
            
-       }
+    }
     
     var selectedBeer: Beer?
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        
         let producer = model.producers[indexPath.section]
         let producerNum = indexPath.section
-        
         let beerLine =  producer.beersCollect?[indexPath.row]
-        
-        
         selectedBeer = beerLine
         performSegue(withIdentifier: "segueToBeer", sender: nil)
         
     }
     
+    //Handles in what terms the segue to producer is being done
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         
         switch segue.identifier! {
@@ -272,7 +267,6 @@ class ViewController: UITableViewController {
                 let destController = segue.destination as! ProducerViewController
                 destController.aModel = model
                 destController.aAction = (sender as? String)!
-                
             }
             else
             {
@@ -282,7 +276,6 @@ class ViewController: UITableViewController {
                 
             }
             
-        
         case "segueToBeer":
             let destController = segue.destination as! BeerViewController
             destController.aModel = model
@@ -292,24 +285,23 @@ class ViewController: UITableViewController {
         default:
             break
         }
-  
     }
     
-       
+    //heightForRow
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
            return 44.0
        }
-
+    //heightForFooter
     override func tableView(_ tableView: UITableView,  heightForFooterInSection section: Int) -> CGFloat {
            return CGFloat.leastNormalMagnitude
        }
-}
+}//end ViewController
 
 
 
 
-
-func duplicateBeers(_ producers:[Producer], _ viewController:UIViewController) -> [Producer]
+//declaration of fuction clean --> mantains the beer table
+func cleanBeers(_ producers:[Producer], _ viewController:UIViewController) -> [Producer]
     {
 
     var uniqueValues = Set<String>()
@@ -321,8 +313,7 @@ func duplicateBeers(_ producers:[Producer], _ viewController:UIViewController) -
             allBears+=value.beersCollect!
             
         }
-         
-         
+
      }
       allBears = allBears.sorted(by: { $0.nameBeer < $1.nameBeer})
      
@@ -387,23 +378,20 @@ func duplicateBeers(_ producers:[Producer], _ viewController:UIViewController) -
                                 
                             }
                         }
-                            break
+                            
 
                         producers[indexProducer].beersCollect = producers[indexProducer].beersCollect!.sorted(by: { $0.nameBeer < $1.nameBeer})
-                        
+                        break
                         
                     }
                     }
                     
                  }
-   
-                     
 
-                    }
-             }
+            }
+        }
 
-                    
-        
+            
         
      }
     let producersSort = producers.sorted(by: { $0.nameProducer < $1.nameProducer})
@@ -411,12 +399,11 @@ func duplicateBeers(_ producers:[Producer], _ viewController:UIViewController) -
 }
 
 
-
-func duplicateProducers(_ producers:[Producer], _ viewController:UIViewController) -> [Producer]
+//declaration of fuction clean --> mantains the beer table
+func cleanProducers(_ producers:[Producer], _ viewController:UIViewController) -> [Producer]
     {
 
-
-        var producers = producers.sorted(by: { $0.nameProducer < $1.nameProducer})
+    var producers = producers.sorted(by: { $0.nameProducer < $1.nameProducer})
 
      
      for (index, producer) in producers.enumerated() {
@@ -448,9 +435,7 @@ func duplicateProducers(_ producers:[Producer], _ viewController:UIViewControlle
                         producers.remove(at: index)
                     viewController.dismiss(animated: false, completion: nil)
                     notifyUser(viewController, alertTitle: "Redundancy Alert", alertMessage: "Cant have more than three copies of the same producer", runOnOK: {_ in})
-                    
-                    
-                    
+
                 }
             }
          }
@@ -461,4 +446,3 @@ func duplicateProducers(_ producers:[Producer], _ viewController:UIViewControlle
         
         return producers
     }
-

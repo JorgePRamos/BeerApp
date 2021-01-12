@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  BeerApp
 //
-//  Created by Grégoire LARATTE on 26/12/20.
+//  Created by Jorge Pérez Ramos on 25/12/20.
 //
 
 import UIKit

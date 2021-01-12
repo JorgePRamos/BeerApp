@@ -20,7 +20,7 @@ public class Beer : NSObject, NSCoding, NSSecureCoding, Codable{
     {
         self.nameBeer=p_nameBeer
     }
-    
+
     public enum Coding:CodingKey {
         case nameBeer
         case typeBeer
@@ -61,10 +61,9 @@ public class Beer : NSObject, NSCoding, NSSecureCoding, Codable{
         self.IBUBeer = "Unkonwn"
         self.volBeer = "Unkonwn"
         self.pictureBeer = unknownImage?.pngData()
-
         self.duplicate = "1"
 
-        var noBlancName = self.nameBeer.replacingOccurrences(of: "\\s*",
+        let noBlancName = self.nameBeer.replacingOccurrences(of: "\\s*",
                                                 with: "$1",
                                                 options: [.regularExpression])
         
@@ -103,11 +102,12 @@ public class Beer : NSObject, NSCoding, NSSecureCoding, Codable{
         self.duplicate = "1"
     }
     
+    //init csv parser
     init?(_ record: String, _ del: String) {
         let tokens = record.components(separatedBy: del)
         print("#SALTO A CLASE BEER")
         guard
-            tokens.count == 11, // Number of elements to import from CSV
+            tokens.count == 11, // Elementes to be expected in csv
             let tempBeerName = tokens.first,
             !tempBeerName.isEmpty
         else {            print("#Problem with tokens --> \(tokens.count)")
@@ -163,42 +163,25 @@ public class Beer : NSObject, NSCoding, NSSecureCoding, Codable{
         let tempPicture = tokens[10]
         
         let tempDuplicate = 1
-        
-        /*
-        guard
-            !tempPicture.isEmpty,
-            let bits = splitIntoNameAndExtension(total: tempPicture),//maxus
-            bits.count == 2,//¿?
-            let pathPicture = Bundle.main.url(forResource: bits[0], withExtension: bits[1],subdirectory: "beerApp-fotos"),//subdirectorychange
-            FileManager.default.fileExists(atPath: pathPicture.path),
-            let tempPictureImage = UIImage(contentsOfFile: pathPicture.path)
-        else {print("#Problem with photo --> \(tokens[0])")
-            return nil}
-        
-        */
-        
 
-        
         var tempMarkImage : UIImage?
         if
 
-            //let bits = splitIntoNameAndExtension(total: tempMark),//maxus
-            let bits = splitIntoNameAndExtension(total: tempPicture),//maxus
+            let bits = splitIntoNameAndExtension(total: tempPicture),
             bits.count == 2,//¿?
            
-            //goes for pic
+            //gets for picture
             let pathToMark = Bundle.main.url(forResource: bits[0],withExtension: bits[1], subdirectory: "beerApp-fotos")
              
         {   tempMarkImage = UIImage(contentsOfFile: pathToMark.path)
             print("Assigned specific photo")}else    {
-           // print("#Problem with picture --> \(trimed.lowercased())")
+           
             if
                 let pathToMark = Bundle.main.url(forResource:"def",withExtension: "jpg")
                 
             {tempMarkImage = UIImage(contentsOfFile: pathToMark.path)}else{
                 print("                                             #PROBLEMA  ")
                 return nil}
-            //return nil }
 
         }
         
@@ -219,13 +202,7 @@ public class Beer : NSObject, NSCoding, NSSecureCoding, Codable{
         
     }
     
-    
-    
-    
-    
-    
-    
-    
+
     public func encode(with coder: NSCoder) {
         coder.encode(nameBeer, forKey: "BeerName")
         coder.encode(typeBeer, forKey: "typeBeer")
@@ -277,14 +254,7 @@ public class Beer : NSObject, NSCoding, NSSecureCoding, Codable{
         
     }
     
-    
-   
-    /*
-     public override var descrition: String{}
-     
-     */
-    
-    
+
     
     
 }//End Beer Class

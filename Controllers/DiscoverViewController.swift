@@ -2,7 +2,7 @@
 //  discoverViewController.swift
 //  BeerApp
 //
-//  Created by Jorge Pérez Ramos on 8/1/21.
+//  Created by Jorge Pérez Ramos on 7/1/21.
 //
 
 import Foundation
@@ -19,60 +19,18 @@ class DiscoverViewController: UIViewController {
     @IBOutlet weak var beerDescription: UILabel!
     @IBOutlet weak var name: UILabel!
     override func viewDidLoad() {
-       
-        print("DISCOVER CLASS")
         aRandomBeer()
+    }//end view didLoad
     
-          }//end view didLoad
-    
-    @IBAction func getMeAnotehr(_ sender: Any){
+    //Behaviour for button reload
+    @IBAction func getMeAnother(_ sender: Any){
      aRandomBeer()
     }
-    
-    
-    
+
     @IBAction func acceptAcceptAndReturn(_ sender: Any){
         var allCorrect : Bool = true
-        print("CLIKED ACCEPT AND RETURN")
-       
-/*
-        if !checkType(self.nameOfProducer.text!, "word")  {
-            
-            self.nameOfProducer.textColor = .red
-            allCorrect = false
-        }
-        self.name = self.nameOfProducer.text
-        self.number = self.numberOfBeers.text
-        self.producerImage = self.imageOfProducer.image
-        
-        aProducer?.nameProducer = self.name!
-        aProducer?.logoProducer = self.producerImage
-        
-        if(allCorrect){
-            print(self.aAction)
-            if self.aAction == "addProducer"
-            {
-                print("ADD PRODUCER !!!!!")
-                aProducer = Producer(nameProducer: self.name!, logoProducer: self.producerImage)
-                aModel!.producersNamed[aProducer!.nameProducer] = aProducer
-                aModel!.producers.removeAll()
-                print("azeerrttttttttttttttt")
-                print(aModel?.producersNamed.forEach{
-                    print($0.value.nameProducer)
-                })
-                aModel!.producers = aModel!.producersNamed.map { (name, producer) in
-                    return producer
-                }
-                performSegue(withIdentifier: "unwindSegueFromProducerView", sender: self)//posible error
-            }else{
-            */
-            print("UNWIND")
-           
-            
+
             performSegue(withIdentifier: "unwindSegueFromDiscoverView", sender: self)//posible error
-               // }
-     //   }
-        
         
     }
     
@@ -86,27 +44,25 @@ class DiscoverViewController: UIViewController {
         if let url = URL(string: "https://api.punkapi.com/v2/beers/\(randomNumber)") {
             do {
                 contents = try String(contentsOf: url)
-               // print(contents)
+
             } catch {
-                // contents could not be loaded
+                print("Could not fetch contents")
             }
         } else {
-            // the URL was bad!
+            print("Bad URL")
         }
     
-        
-        
-        print(contents )
+
         let data = Data(contents.utf8)
         
         let json = try! JSON(data: data)
     
         
-        let id = json[0]["name"] ?? "Unkown"
-        let desc = json[0]["description"] ?? "Unkown"
-        let img = json[0]["image_url"] ?? "Unkown"
-        var urlStrings = "\(img)"
-        var finalImage : UIImage
+        let id = json[0]["name"]
+        let desc = json[0]["description"]
+        let img = json[0]["image_url"]
+        let urlStrings = "\(img)"
+        let finalImage : UIImage
         
         print("------------------")
         print(urlStrings)
@@ -114,7 +70,7 @@ class DiscoverViewController: UIViewController {
         
         let session = URLSession(configuration: .default)
         var image : UIImage?
-        // Define a download task. The download task will download the contents of the URL as a Data object and then you can do what you wish with that data.
+        // Define a download task
         let downloadPicTask = session.dataTask(with: catPictureURL) { [self] (data, response, error) in
             // The download has finished.
             if let e = error {
@@ -157,4 +113,3 @@ class DiscoverViewController: UIViewController {
 
 }//end class
     
-

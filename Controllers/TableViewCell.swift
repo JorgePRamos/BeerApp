@@ -2,7 +2,7 @@
 //  TableViewCell.swift
 //  BeerApp
 //
-//  Created by Grégoire LARATTE on 1/1/21.
+//  Created by Jorge Pérez Ramos on 2/1/21.
 //
 
 import UIKit

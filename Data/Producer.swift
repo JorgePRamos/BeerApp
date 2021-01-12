@@ -40,16 +40,16 @@ public class Producer : NSObject, NSCoding, NSSecureCoding, Codable{
     }
 
     
-
+    //init csv parser
     init?(record:String, delimiter del:String) {
         print("CREANDO PRODUCER")
-        let tokens = record.components(separatedBy: del)//separar linia por delimitador
+        let tokens = record.components(separatedBy: del)
         let dfm = FileManager.default
         self.beersCollect = [Beer]()
         print("#tokens  --> \(tokens) ")
-        let  tempNameProducer = tokens[2]//get name producer
+        let  tempNameProducer = tokens[2]
         guard
-            tokens.count == 11,//11¿
+            tokens.count == 11,//expected elements csv
             
             !tempNameProducer.isEmpty
         else {
@@ -67,7 +67,6 @@ public class Producer : NSObject, NSCoding, NSSecureCoding, Codable{
         var tempMarkImage : UIImage?
         if
 
-            //let bits = splitIntoNameAndExtension(total: tempMark),//maxus
         
             //goes for pic
             let pathToMark = Bundle.main.url(forResource: trimed.lowercased(),withExtension: "png", subdirectory: "beerApp-fotos"),
@@ -86,7 +85,7 @@ public class Producer : NSObject, NSCoding, NSSecureCoding, Codable{
             }else{
                 print("                                             #PROBLEMA  ")
                 return nil}
-            //return nil }
+           
 
         }
         print("#ACABAMOS CON IMAGEN")
@@ -105,41 +104,7 @@ public class Producer : NSObject, NSCoding, NSSecureCoding, Codable{
         self.nameProducer = try container.decodeIfPresent(String.self, forKey: .nameProducer)!
     }
     
-    
-    /*
-     init?(record:String, delimiter del:String) {
 
-         let tokens = record.components(separatedBy: del)//separar linia por delimitador
-         let dfm = FileManager.default
-
-         guard
-             tokens.count == 2,
-             let  tempNameProducer = tokens.first,//name producer primer elemento
-             !tempNameProducer.isEmpty
-         else { return nil }
-
-         let tempMark = tokens[1]//¿?¿?
-
-         guard
-
-             let bits = splitIntoNameAndExtension(total: tempMark),//maxus
-             
-             let pathToMark = Bundle.main.url(forResource: bits[0],withExtension: bits[1], subdirectory: "beerApp-fotos"),
-             dfm.fileExists(atPath: pathToMark.path),
-             let tempMarkImage = UIImage(contentsOfFile: pathToMark.path)
-         else    { return nil }
-
-         
-
-         self.nameProducer = tempNameProducer
-         self.logoProducer = tempMarkImage
-     
-
-     }
-     */
-    
-    
-    
     public func encode(with coder: NSCoder) {
         coder.encode(nameProducer, forKey: "nameProducer")
         coder.encode(logoProducer, forKey: "logoProducer")

@@ -2,7 +2,7 @@
 //  TableViewHeader.swift
 //  BeerApp
 //
-//  Created by Grégoire LARATTE on 4/1/21.
+//  Created by Jorge Pérez Ramos on 3/1/21.
 //
 
 import UIKit

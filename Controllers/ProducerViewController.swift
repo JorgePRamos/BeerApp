@@ -61,8 +61,7 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
             
         }
         
-        print("88888888888888888")
-        print(aProducer?.logoProducer)
+
         let pathToMark = Bundle.main.url(forResource:"defaultPic",withExtension: "png")
         
         imageOfProducer.image = UIImage(contentsOfFile: pathToMark!.path)
@@ -82,8 +81,7 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
         
         
         aModel?.producersNamed.removeValue(forKey: aProducer!.nameProducer)
-        print("5555555555555")
-        print(aModel?.producersNamed)
+
         aModel?.producers.removeAll()
         aModel?.producers = aModel!.producersNamed.map { (name, producer) in
             return producer
@@ -139,20 +137,19 @@ class ProducerViewController: UIViewController, UINavigationControllerDelegate, 
 
             if self.aAction == "addProducer"
             {
-                
                 aProducer = Producer(nameProducer: self.name!, logoProducer: self.producerImage)
+                if aModel!.producersNamed[aProducer!.nameProducer] == nil{
                 aModel!.producersNamed[aProducer!.nameProducer] = aProducer
                 aModel!.producers.removeAll()
                 aModel!.producers = aModel!.producersNamed.map { (name, producer) in
                     return producer
                 }
+                }
                 performSegue(withIdentifier: "unwindSegueFromProducerView", sender: self)
             }else{
 
-            
-            print("UNWIND")
+
             print(allCorrect)
-                print(aProducer?.logoProducer)
             performSegue(withIdentifier: "unwindSegueFromProducerView", sender: self)//posible error
 
                 }
