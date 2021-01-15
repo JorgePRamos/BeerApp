@@ -90,7 +90,7 @@ public class Model : NSObject, NSCoding{
 
         producersNamed.forEach{$0.value.beersCollect?.sort(by:  {($0.nameBeer) > ($1.nameBeer)})}
        
-        producersNamed.sorted(by: {$0.value.nameProducer > $1.value.nameProducer})
+       
         producersNamed.forEach{print($0.value.nameProducer)}
 
         
@@ -99,7 +99,7 @@ public class Model : NSObject, NSCoding{
    
     
 
-    func importBeersFromCsvOnline(_ file:String, _ folder:String) -> Bool{
+    func importBeersFromCsvOnline(_ file:String, _ folder:String) -> Void{
 
 
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -124,6 +124,7 @@ public class Model : NSObject, NSCoding{
                             try FileManager.default.moveItem(at: fileTempFileUrl, to: path)
 
                             let text = try String(contentsOf: path, encoding: .utf8)
+                            print(text)
 
                     }
 
@@ -136,17 +137,17 @@ public class Model : NSObject, NSCoding{
                     }
 
                 }.resume()
-                return false
+                
             }
 
            
             
         } else {
             print("File already exist")
-            return false
+            
         }
     
-        return true
+        
     }
 
 
@@ -287,7 +288,7 @@ public class Model : NSObject, NSCoding{
     
     func readProducersInfosFromDocuments(url: URL)->Bool{
         var d:Data!
-        var x:Any?
+        var _:Any?
         do{
             print(url.absoluteString)
             d = try Data(contentsOf: url)
