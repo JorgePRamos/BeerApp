@@ -515,36 +515,33 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7v4-M2-gju">
-                                        <rect key="frame" x="18" y="26" width="132" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="132" id="VJN-tF-5vy"/>
-                                        </constraints>
+                                        <rect key="frame" x="18" y="26" width="37" height="35"/>
                                         <state key="normal" title="Done"/>
                                         <connections>
                                             <action selector="acceptAcceptAndReturn:" destination="Om3-1Q-HiV" eventType="touchUpInside" id="ERT-sO-Nxv"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aa1-o3-s9l">
-                                        <rect key="frame" x="347" y="26" width="47" height="35"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lmg-ZP-N8W">
+                                        <rect key="frame" x="345" y="28" width="47" height="31"/>
                                         <state key="normal" title="Reload"/>
                                         <connections>
-                                            <action selector="getMeAnotehr:" destination="Om3-1Q-HiV" eventType="touchUpInside" id="ywF-CN-3Zb"/>
+                                            <action selector="getMeAnother:" destination="Om3-1Q-HiV" eventType="touchUpInside" id="COv-aT-hgn"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="3zm-k2-pcT" secondAttribute="trailing" id="3FG-15-A1g"/>
-                                    <constraint firstItem="Aa1-o3-s9l" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7v4-M2-gju" secondAttribute="trailing" constant="8" symbolic="YES" id="I2K-Bk-O0x"/>
-                                    <constraint firstItem="7v4-M2-gju" firstAttribute="baseline" secondItem="Aa1-o3-s9l" secondAttribute="firstBaseline" id="IUE-kx-qOZ"/>
-                                    <constraint firstItem="7v4-M2-gju" firstAttribute="top" secondItem="YCc-Zv-rnj" secondAttribute="top" constant="26" id="Joi-QM-WX0"/>
-                                    <constraint firstItem="YCc-Zv-rnj" firstAttribute="trailing" secondItem="Aa1-o3-s9l" secondAttribute="trailing" constant="20" id="QoZ-62-ubz"/>
+                                    <constraint firstItem="7v4-M2-gju" firstAttribute="leading" secondItem="YCc-Zv-rnj" secondAttribute="leading" constant="18" id="Hkb-ir-QmX"/>
+                                    <constraint firstItem="lmg-ZP-N8W" firstAttribute="top" secondItem="YCc-Zv-rnj" secondAttribute="top" constant="28" id="Jb1-vC-sfq"/>
+                                    <constraint firstItem="7v4-M2-gju" firstAttribute="top" secondItem="YCc-Zv-rnj" secondAttribute="top" constant="26" id="L1y-HB-AqQ"/>
+                                    <constraint firstItem="7v4-M2-gju" firstAttribute="centerY" secondItem="lmg-ZP-N8W" secondAttribute="centerY" id="P76-az-Bfg"/>
                                     <constraint firstAttribute="bottom" secondItem="3zm-k2-pcT" secondAttribute="bottom" constant="-48" id="caD-p0-eOz"/>
                                     <constraint firstItem="3zm-k2-pcT" firstAttribute="centerX" secondItem="HzQ-7J-3ru" secondAttribute="centerX" id="d41-V7-VQW"/>
-                                    <constraint firstItem="7v4-M2-gju" firstAttribute="top" secondItem="Aa1-o3-s9l" secondAttribute="top" id="eKb-A5-Ids"/>
                                     <constraint firstItem="3zm-k2-pcT" firstAttribute="top" secondItem="TaC-C5-2Sy" secondAttribute="top" constant="86" id="ekB-Vc-Hup"/>
+                                    <constraint firstItem="YCc-Zv-rnj" firstAttribute="trailing" secondItem="lmg-ZP-N8W" secondAttribute="trailing" constant="22" id="hJG-2K-mIP"/>
                                     <constraint firstItem="3zm-k2-pcT" firstAttribute="leading" secondItem="HzQ-7J-3ru" secondAttribute="leading" id="iR4-kc-Oi8"/>
-                                    <constraint firstItem="7v4-M2-gju" firstAttribute="leading" secondItem="HzQ-7J-3ru" secondAttribute="leadingMargin" constant="10" id="vm0-cS-O6I"/>
-                                    <constraint firstItem="3zm-k2-pcT" firstAttribute="top" secondItem="7v4-M2-gju" secondAttribute="bottom" constant="25" id="x58-SR-pWC"/>
+                                    <constraint firstItem="lmg-ZP-N8W" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7v4-M2-gju" secondAttribute="trailing" constant="8" symbolic="YES" id="m2x-wJ-2LY"/>
+                                    <constraint firstItem="3zm-k2-pcT" firstAttribute="top" secondItem="7v4-M2-gju" secondAttribute="bottom" constant="25" id="nVq-mP-cCc"/>
                                 </constraints>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="-8" maxY="0.0"/>
                                 <viewLayoutGuide key="contentLayoutGuide" id="TaC-C5-2Sy"/>
@@ -572,7 +569,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nzz-xr-spI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="ndP-5L-rW6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-3061" y="-490"/>
+            <point key="canvasLocation" x="-3062.4000000000001" y="-490.25487256371815"/>
         </scene>
     </scenes>
     <resources>

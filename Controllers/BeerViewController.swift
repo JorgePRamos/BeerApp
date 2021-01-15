@@ -350,7 +350,8 @@ extension BeerViewController : UIPickerViewDataSource{
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)  {
        
         if pickerView == producerSelector {
-            self.listMakersNames?[row] ?? "Unknown Producer"
+            self.producer = self.listMakersNames?[row]
+            
         }else if pickerView == expDatePicker{
             if component == 0{
                 self.tempM = yearMoths[row]

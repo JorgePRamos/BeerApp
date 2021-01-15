@@ -28,7 +28,7 @@ class DiscoverViewController: UIViewController {
     }
 
     @IBAction func acceptAcceptAndReturn(_ sender: Any){
-        var allCorrect : Bool = true
+        
 
             performSegue(withIdentifier: "unwindSegueFromDiscoverView", sender: self)//posible error
         
@@ -62,7 +62,7 @@ class DiscoverViewController: UIViewController {
         let desc = json[0]["description"]
         let img = json[0]["image_url"]
         let urlStrings = "\(img)"
-        let finalImage : UIImage
+        let _ : UIImage
         
         print("------------------")
         print(urlStrings)
@@ -71,7 +71,7 @@ class DiscoverViewController: UIViewController {
         let session = URLSession(configuration: .default)
         var image : UIImage?
         // Define a download task
-        let downloadPicTask = session.dataTask(with: catPictureURL) { [self] (data, response, error) in
+        let downloadPicTask = session.dataTask(with: catPictureURL) { (data, response, error) in
             // The download has finished.
             if let e = error {
                 print("Error downloading cat picture: \(e)")

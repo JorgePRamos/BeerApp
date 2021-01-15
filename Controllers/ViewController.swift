@@ -248,7 +248,7 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         
         let producer = model.producers[indexPath.section]
-        let producerNum = indexPath.section
+        _ = indexPath.section
         let beerLine =  producer.beersCollect?[indexPath.row]
         selectedBeer = beerLine
         performSegue(withIdentifier: "segueToBeer", sender: nil)
@@ -260,7 +260,7 @@ class ViewController: UITableViewController {
         
         switch segue.identifier! {
         case "segueToProducer":
-            let destController = segue.destination as! ProducerViewController
+            _ = segue.destination as! ProducerViewController
             
             if sender as? String == "addProducer"
             {
@@ -281,7 +281,7 @@ class ViewController: UITableViewController {
             destController.aModel = model
             destController.aBeer = selectedBeer
         case "segueToDiscover":
-            let destController = segue.destination as! DiscoverViewController
+            _ = segue.destination as! DiscoverViewController
         default:
             break
         }
@@ -304,8 +304,8 @@ class ViewController: UITableViewController {
 func cleanBeers(_ producers:[Producer], _ viewController:UIViewController) -> [Producer]
     {
 
-    var uniqueValues = Set<String>()
-     var resultDict = [String: Producer]()
+    _ = Set<String>()
+    _ = [String: Producer]()
      var allBears:[Beer] = []
     
      producers.forEach {(value) in
@@ -323,14 +323,14 @@ func cleanBeers(_ producers:[Producer], _ viewController:UIViewController) -> [P
              
              var nameBeerCurrent = String(bear.nameBeer)
 
-             var nameBeerNext = allBears[index+1].nameBeer
+            let nameBeerNext = allBears[index+1].nameBeer
              nameBeerCurrent = allBears[index].nameBeer
              if (nameBeerNext.elementsEqual(nameBeerCurrent))
              {
                  if (allBears[index].capBeer == allBears[index+1].capBeer && allBears[index].expDateBeer == allBears[index+1].expDateBeer && allBears[index].nationalityBeer == allBears[index+1].nationalityBeer && allBears[index].rateBeer == allBears[index+1].rateBeer){
-                    var nameProducer = allBears[index].producerBeer
-                    var nameBearDupli = allBears[index].nameBeer
-                    var duplica = false
+                    _ = allBears[index].producerBeer
+                    _ = allBears[index].nameBeer
+                    _ = false
                     var countDuplu = 0
                     
                     let producersDupli:[Producer] = producers.filter{$0.nameProducer == allBears[index].producerBeer}
@@ -421,7 +421,7 @@ func cleanProducers(_ producers:[Producer], _ viewController:UIViewController) -
                     producers[index].nameProducer = producer.nameProducer + "_" + producer.duplicate
                     
                 }
-               if producers.filter{$0.nameProducer == producers[index].nameProducer}.count == 2
+                if producers.filter({$0.nameProducer == producers[index].nameProducer}).count == 2
                 {
                 var tempInteger = Int(producers[index].duplicate)
                 tempInteger! += 1

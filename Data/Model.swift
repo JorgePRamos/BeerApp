@@ -340,13 +340,10 @@ public class Model : NSObject, NSCoding{
         //Write info in docs
         
         var data:Data!
-        do{
-            data = try! JSONEncoder().encode(producers)
+        
+        data = try! JSONEncoder().encode(producers)
 
-        }catch{
-            print("Could Not serialize producers: \(error.localizedDescription)")
-            return false
-        }
+    
         do{
             try data.write(to: urlsOfFile)
             
