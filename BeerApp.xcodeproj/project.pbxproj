@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6309DC5025A8F2A700EC2A7A /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 6309DC4F25A8F2A700EC2A7A /* SwiftyJSON */; };
-		6309DC6525AA572600EC2A7A /* defaultPic.png in Resources */ = {isa = PBXBuildFile; fileRef = 6309DC6425AA572600EC2A7A /* defaultPic.png */; };
-		6309DC6A25AA574F00EC2A7A /* def.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6309DC6925AA574F00EC2A7A /* def.jpg */; };
+		631A0A0525ADDE7E000026B0 /* def.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 631A0A0425ADDE7E000026B0 /* def.jpg */; };
+		631A0A0A25ADDE96000026B0 /* defaultPic.png in Resources */ = {isa = PBXBuildFile; fileRef = 631A0A0925ADDE95000026B0 /* defaultPic.png */; };
 		635BEB6C25A340A400F09FF0 /* TableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635BEB6A25A340A400F09FF0 /* TableViewHeader.swift */; };
 		635BEB6D25A340A400F09FF0 /* TableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635BEB6B25A340A400F09FF0 /* TableViewHeader.xib */; };
 		635F96EA25A8D01D00495A15 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96E925A8D01D00495A15 /* DiscoverViewController.swift */; };
@@ -49,8 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6309DC6425AA572600EC2A7A /* defaultPic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = defaultPic.png; path = "../../../App/beerApp-fotos/defaultPic.png"; sourceTree = "<group>"; };
-		6309DC6925AA574F00EC2A7A /* def.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = def.jpg; path = "../../../App/beerApp-fotos/def.jpg"; sourceTree = "<group>"; };
+		631A0A0425ADDE7E000026B0 /* def.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = def.jpg; sourceTree = "<group>"; };
+		631A0A0925ADDE95000026B0 /* defaultPic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultPic.png; sourceTree = "<group>"; };
 		635BEB6A25A340A400F09FF0 /* TableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeader.swift; sourceTree = "<group>"; };
 		635BEB6B25A340A400F09FF0 /* TableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewHeader.xib; sourceTree = "<group>"; };
 		635F96E925A8D01D00495A15 /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
@@ -184,8 +184,8 @@
 		63935DA4259B60D6007D87DB /* beerApp-fotos */ = {
 			isa = PBXGroup;
 			children = (
-				6309DC6925AA574F00EC2A7A /* def.jpg */,
-				6309DC6425AA572600EC2A7A /* defaultPic.png */,
+				631A0A0925ADDE95000026B0 /* defaultPic.png */,
+				631A0A0425ADDE7E000026B0 /* def.jpg */,
 			);
 			path = "beerApp-fotos";
 			sourceTree = "<group>";
@@ -307,10 +307,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				63935CC42597533C007D87DB /* LaunchScreen.storyboard in Resources */,
-				6309DC6525AA572600EC2A7A /* defaultPic.png in Resources */,
 				635BEB6D25A340A400F09FF0 /* TableViewHeader.xib in Resources */,
+				631A0A0A25ADDE96000026B0 /* defaultPic.png in Resources */,
 				63935E18259EFD78007D87DB /* TableViewCell.xib in Resources */,
-				6309DC6A25AA574F00EC2A7A /* def.jpg in Resources */,
+				631A0A0525ADDE7E000026B0 /* def.jpg in Resources */,
 				A343DE8F25A3881700D2B2A0 /* Assets.xcassets in Resources */,
 				63935CBF2597533B007D87DB /* Main.storyboard in Resources */,
 			);
@@ -532,7 +532,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Grégoire.BeerApp";
+				PRODUCT_BUNDLE_IDENTIFIER = BeerApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -550,7 +550,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Grégoire.BeerApp";
+				PRODUCT_BUNDLE_IDENTIFIER = BeerApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
